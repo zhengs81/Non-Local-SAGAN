@@ -57,9 +57,9 @@ $ bash download.sh LSUN
 #### 3. Train 
 ##### (i) Train
 ```bash
-$ python python main.py --batch_size 64 --imsize 64 --dataset celeb --adv_loss hinge --version sagan_celeb
+$ python python main.py --batch_size 64 --imsize 64 --dataset celeb --adv_loss hinge --version sagan_celeb --inception_step 1000000
 or
-$ python python main.py --batch_size 64 --imsize 64 --dataset lsun --adv_loss hinge --version sagan_lsun
+$ python python main.py --batch_size 64 --imsize 64 --dataset lsun --adv_loss hinge --version sagan_lsun --inception_step 1000000
 ```
 #### 4. Enjoy the results
 ```bash
@@ -69,3 +69,4 @@ $ cd samples/sagan_lsun
 
 ```
 Samples generated every 100 iterations are located. The rate of sampling could be controlled via --sample_step (ex, --sample_step 100). 
+set --inception_step to save the result for inception_score, it should be the same as total_step

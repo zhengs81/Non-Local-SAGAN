@@ -20,6 +20,7 @@ def main(config):
     make_folder(config.sample_path, config.version)
     make_folder(config.log_path, config.version)
     make_folder(config.attn_path, config.version)
+    make_folder(config.inception_path, config.version)
 
 
     if config.train:
