@@ -30,7 +30,8 @@ def main(config):
             trainer = qgan_trainer(data_loader.loader(), config)
         trainer.train()
     else:
-        tester = Tester(data_loader.loader(), config)
+        # python main.py --train False --pretrained_model 996975 --batch_size 64 --imsize 64 --version sagan_celeb
+        tester = Tester(config)
         tester.test()
 
 if __name__ == '__main__':
