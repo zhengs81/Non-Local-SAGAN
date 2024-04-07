@@ -47,18 +47,15 @@ class Trainer(object):
         self.log_path = config.log_path
         self.model_save_path = config.model_save_path
         self.sample_path = config.sample_path
-        self.inception_path = config.inception_path
         self.log_step = config.log_step
         self.sample_step = config.sample_step
         self.model_save_step = config.model_save_step
         self.version = config.version
-        self.inception_step = config.inception_step
 
         # Path
         self.log_path = os.path.join(config.log_path, self.version)
         self.sample_path = os.path.join(config.sample_path, self.version)
         self.model_save_path = os.path.join(config.model_save_path, self.version)
-        self.inception_path = os.path.join(config.inception_path, self.version)
 
         self.build_model()
 
@@ -76,7 +73,8 @@ class Trainer(object):
         # Data iterator
         data_iter = iter(self.data_loader)
         step_per_epoch = len(self.data_loader)
-        model_save_step = int(self.model_save_step * step_per_epoch)
+        # model_save_step = int(self.model_save_step * step_per_epoch)
+        model_save_step = self.model_save_step
 
         # Fixed input for debugging
         fixed_z = tensor2var(torch.randn(self.batch_size, self.z_dim))
@@ -182,13 +180,8 @@ class Trainer(object):
             # Sample images
             if (step + 1) % self.sample_step == 0:
                 fake_images,_,_= self.G(fixed_z)
-                # print("shape of generated image :", denorm(fake_images.data).shape) # (64,3,64,64)
                 save_image(denorm(fake_images.data),
                            os.path.join(self.sample_path, '{}_fake.png'.format(step + 1)))
-                if (step + 1) == self.inception_step:
-                    for i, image in enumerate(fake_images.data):
-                        # Save the image to a file
-                        save_image(denorm(image), os.path.join(self.inception_path, '{}_fake.png'.format(i)))
 
             if (step+1) % model_save_step==0:
                 torch.save(self.G.state_dict(),
