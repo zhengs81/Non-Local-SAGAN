@@ -10,7 +10,7 @@ def get_mask(imsize,span):
     for i in range(imsize):
         for j in range(imsize):
             temp=torch.ones((imsize,imsize))
-            temp[max(0,i-span):min(i+span+1,imsize),max(0,j-span):min(j+span+1,imsize)]=0
+            temp[max(0,i-span):min(i+span+1,imsize),max(0,j-span):min(j+span+1,imsize)]=-1e9
             mask.append(temp.reshape(-1))
     mask=torch.stack(mask)
     return mask.cuda()
@@ -42,7 +42,7 @@ class Self_Attn(nn.Module):
         proj_key =  self.key_conv(x).view(m_batchsize,-1,width*height) # (B,C,W*H)
         energy =  torch.bmm(proj_query,proj_key) # transpose check (B,W*H,W*H)
         mask = get_mask(width,1)
-        energy*=mask
+        energy+=mask
         attention = self.softmax(energy) # BX (N) X (N) 
         proj_value = self.value_conv(x).view(m_batchsize,-1,width*height) # B X C X N
 
