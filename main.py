@@ -1,7 +1,7 @@
 
 from parameter import *
 from trainer import Trainer
-# from tester import Tester
+from tester import Tester
 from data_loader import Data_Loader
 from torch.backends import cudnn
 from utils import make_folder

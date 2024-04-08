@@ -8,6 +8,7 @@ def make_folder(path, version):
             os.makedirs(os.path.join(path, version))
 
 
+# 把张量转换为变量，用于兼容PyTorch早期版本
 def tensor2var(x, grad=False):
     if torch.cuda.is_available():
         x = x.cuda()

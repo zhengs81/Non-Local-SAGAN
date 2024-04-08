@@ -44,7 +44,7 @@ def process_images(source_dir, target_dir, transformer):
 if __name__ == '__main__':
     # Set your source and target directories
     source_directory = 'data/CelebA/img_align_celeba/img_align_celeba'
-    target_directory = 'data/CelebA/img_align_celeba/transformed_images'
+    target_directory = 'data/transformed_images'
     image_size = 64 # Set this to your desired image size
 
     # Create an instance of the transformer

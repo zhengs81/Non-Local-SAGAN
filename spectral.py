@@ -7,6 +7,7 @@ from torch import nn
 from torch import Tensor
 from torch.nn import Parameter
 
+# 通过l2normalize保证谱范数<=1，从而stablize training
 def l2normalize(v, eps=1e-12):
     return v / (v.norm() + eps)
 

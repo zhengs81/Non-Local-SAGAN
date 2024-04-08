@@ -1,3 +1,4 @@
+
 import os
 import time
 import torch
@@ -68,14 +69,14 @@ class Tester(object):
             self.load_pretrained_model()
     
     def test(self):
-        make_folder('./','generated_dataset')
+        make_folder('./','generated_dataset{}'.format(self.pretrained_model))
         # 一共可得到1000*64=64000张照片
         for i in range(1000):
             # 一定要用randn,不可用rand！ 前者为正态分布，后者为均匀分布
             rand_z=tensor2var(torch.randn(self.batch_size, self.z_dim))
             fake_images,_,_=self.G(rand_z)
             for j in range(self.batch_size):
-                save_image(denorm(fake_images[j]),'./generated_dataset/{}_fake.png'.format(i*64+j + 1))
+                save_image(denorm(fake_images[j]),'./generated_dataset'+str(self.pretrained_model)+'/{}_fake.png'.format(i*64+j + 1))
             # save_image(denorm(fake_images),'./generated_dataset/tot.png')
 
     def build_model(self):
@@ -93,11 +94,12 @@ class Tester(object):
 
         self.c_loss = torch.nn.CrossEntropyLoss()
         # print networks
-        print(self.G)
+        # print(self.G)
 
     def load_pretrained_model(self):
         self.G.load_state_dict(torch.load(os.path.join(
             self.model_save_path, '{}_G.pth'.format(self.pretrained_model))))
         self.D.load_state_dict(torch.load(os.path.join(
             self.model_save_path, '{}_D.pth'.format(self.pretrained_model))))
+
         print('loaded trained models (step: {})..!'.format(self.pretrained_model))

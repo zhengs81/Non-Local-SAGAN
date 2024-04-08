@@ -1,0 +1,17 @@
+.idea/
+data*/
+models*/
+samples*/
+logs*/
+__pycache__/
+attn*/
+*.txt
+/pytorch-fid
+.ipynb_checkpoints/
+generated_*/
+image/
+new_generated_dataset*/
+sparse_attn/
+sparse_logs/
+sparse_models/
+sparse_samples/
