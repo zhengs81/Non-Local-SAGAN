@@ -9,7 +9,7 @@ def get_mask(imsize,span):
     mask=[]
     for i in range(imsize):
         for j in range(imsize):
-            temp=torch.ones((imsize,imsize))
+            temp=torch.zeros((imsize,imsize))
             temp[max(0,i-span):min(i+span+1,imsize),max(0,j-span):min(j+span+1,imsize)]=-1e9
             mask.append(temp.reshape(-1))
     mask=torch.stack(mask)
