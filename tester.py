@@ -1,3 +1,4 @@
+
 import os
 import time
 import torch
@@ -100,4 +101,5 @@ class Tester(object):
             self.model_save_path, '{}_G.pth'.format(self.pretrained_model))))
         self.D.load_state_dict(torch.load(os.path.join(
             self.model_save_path, '{}_D.pth'.format(self.pretrained_model))))
+
         print('loaded trained models (step: {})..!'.format(self.pretrained_model))

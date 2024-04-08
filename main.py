@@ -20,6 +20,7 @@ def main(config):
     make_folder(config.sample_path, config.version)
     make_folder(config.log_path, config.version)
     make_folder(config.attn_path, config.version)
+    make_folder(config.inception_path, config.version)
 
 
     if config.train:
@@ -29,6 +30,7 @@ def main(config):
             trainer = qgan_trainer(data_loader.loader(), config)
         trainer.train()
     else:
+        # python main.py --train False --pretrained_model 996975 --batch_size 64 --imsize 64 --version sagan_celeb
         tester = Tester(config)
         tester.test()
 
