@@ -19,7 +19,7 @@ def get_parameters():
     parser.add_argument('--version', type=str, default='sagan_1')
 
     # Training setting
-    parser.add_argument('--total_step', type=int, default=1000000, help='how many times to update the generator')
+    parser.add_argument('--total_step', type=int, default=100000, help='how many times to update the generator')
     parser.add_argument('--d_iters', type=float, default=5)
     parser.add_argument('--batch_size', type=int, default=64)
     parser.add_argument('--num_workers', type=int, default=2)
@@ -40,15 +40,17 @@ def get_parameters():
 
     # Path
     parser.add_argument('--image_path', type=str, default='./data')
-    parser.add_argument('--log_path', type=str, default='./logs')
-    parser.add_argument('--model_save_path', type=str, default='./models')
-    parser.add_argument('--sample_path', type=str, default='./samples')
-    parser.add_argument('--attn_path', type=str, default='./attn')
+    parser.add_argument('--log_path', type=str, default='./sparse_logs')
+    parser.add_argument('--model_save_path', type=str, default='./sparse_models')
+    parser.add_argument('--sample_path', type=str, default='./sparse_samples')
+    parser.add_argument('--attn_path', type=str, default='./sparse_attn')
 
     # Step size
     parser.add_argument('--log_step', type=int, default=10)
-    parser.add_argument('--sample_step', type=int, default=100)
-    parser.add_argument('--model_save_step', type=float, default=1.0)
+    parser.add_argument('--sample_step', type=int, default=1000)
+    parser.add_argument('--model_save_step', type=int, default=10000)
 
 
-    return parser.parse_args()
+    # return parser.parse_args()
+    args, unknown = parser.parse_known_args()
+    return args

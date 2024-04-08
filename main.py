@@ -1,7 +1,7 @@
 
 from parameter import *
 from trainer import Trainer
-# from tester import Tester
+from tester import Tester
 from data_loader import Data_Loader
 from torch.backends import cudnn
 from utils import make_folder
@@ -29,7 +29,7 @@ def main(config):
             trainer = qgan_trainer(data_loader.loader(), config)
         trainer.train()
     else:
-        tester = Tester(data_loader.loader(), config)
+        tester = Tester(config)
         tester.test()
 
 if __name__ == '__main__':
