@@ -51,6 +51,7 @@ class Trainer(object):
         self.sample_step = config.sample_step
         self.model_save_step = config.model_save_step
         self.version = config.version
+        self.span = config.span
 
         # Path
         self.log_path = os.path.join(config.log_path, self.version)
@@ -191,8 +192,8 @@ class Trainer(object):
 
     def build_model(self):
 
-        self.G = Generator(self.batch_size,self.imsize, self.z_dim, self.g_conv_dim).cuda()
-        self.D = Discriminator(self.batch_size,self.imsize, self.d_conv_dim).cuda()
+        self.G = Generator(self.batch_size,self.imsize, self.z_dim, self.g_conv_dim, self.span).cuda()
+        self.D = Discriminator(self.batch_size,self.imsize, self.d_conv_dim, self.span).cuda()
         if self.parallel:
             self.G = nn.DataParallel(self.G)
             self.D = nn.DataParallel(self.D)

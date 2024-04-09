@@ -17,7 +17,7 @@ def get_mask(imsize,span):
 
 class Self_Attn(nn.Module):
     """ Self attention Layer"""
-    def __init__(self,in_dim,activation):
+    def __init__(self,in_dim,activation, span):
         super(Self_Attn,self).__init__()
         self.chanel_in = in_dim
         self.activation = activation
@@ -29,6 +29,7 @@ class Self_Attn(nn.Module):
         self.gamma = nn.Parameter(torch.zeros(1)) # gamma默认为1
 
         self.softmax  = nn.Softmax(dim=-1) #
+        self.span = span
     def forward(self,x):
         """
             inputs :
@@ -41,7 +42,7 @@ class Self_Attn(nn.Module):
         proj_query  = self.query_conv(x).view(m_batchsize,-1,width*height).permute(0,2,1) # (B,W*H,C)
         proj_key =  self.key_conv(x).view(m_batchsize,-1,width*height) # (B,C,W*H)
         energy =  torch.bmm(proj_query,proj_key) # transpose check (B,W*H,W*H)
-        mask = get_mask(width,3)
+        mask = get_mask(width,self.span)
         energy+=mask
         attention = self.softmax(energy) # BX (N) X (N) 
         proj_value = self.value_conv(x).view(m_batchsize,-1,width*height) # B X C X N
@@ -55,7 +56,7 @@ class Self_Attn(nn.Module):
 class Generator(nn.Module):
     """Generator."""
 
-    def __init__(self, batch_size, image_size=64, z_dim=128, conv_dim=64):
+    def __init__(self, batch_size, image_size=64, z_dim=128, conv_dim=64, span=0):
         super(Generator, self).__init__()
         self.imsize = image_size
         layer1 = []
@@ -103,8 +104,8 @@ class Generator(nn.Module):
         last.append(nn.Tanh())
         self.last = nn.Sequential(*last)
 
-        self.attn1 = Self_Attn( 128, 'relu')
-        self.attn2 = Self_Attn( 64,  'relu')
+        self.attn1 = Self_Attn( 128, 'relu', span)
+        self.attn2 = Self_Attn( 64,  'relu', span)
 
     def forward(self, z):
         z = z.view(z.size(0), z.size(1), 1, 1)
@@ -122,9 +123,10 @@ class Generator(nn.Module):
 class Discriminator(nn.Module):
     """Discriminator, Auxiliary Classifier."""
 
-    def __init__(self, batch_size=64, image_size=64, conv_dim=64):
+    def __init__(self, batch_size=64, image_size=64, conv_dim=64, span=0):
         super(Discriminator, self).__init__()
         self.imsize = image_size
+        self.span = span
         layer1 = []
         layer2 = []
         layer3 = []
@@ -162,8 +164,8 @@ class Discriminator(nn.Module):
         last.append(nn.Conv2d(curr_dim, 1, 4))
         self.last = nn.Sequential(*last)
 
-        self.attn1 = Self_Attn(256, 'relu')
-        self.attn2 = Self_Attn(512, 'relu')
+        self.attn1 = Self_Attn(256, 'relu', self.span)
+        self.attn2 = Self_Attn(512, 'relu', self.span)
 
     def forward(self, x):
         out = self.l1(x)
