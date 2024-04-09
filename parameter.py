@@ -40,10 +40,10 @@ def get_parameters():
 
     # Path
     parser.add_argument('--image_path', type=str, default='./data')
-    parser.add_argument('--log_path', type=str, default='./sparse_logs')
-    parser.add_argument('--model_save_path', type=str, default='./sparse_models')
-    parser.add_argument('--sample_path', type=str, default='./sparse_samples')
-    parser.add_argument('--attn_path', type=str, default='./sparse_attn')
+    parser.add_argument('--log_path', type=str, default='./sparse_logs_3')
+    parser.add_argument('--model_save_path', type=str, default='./sparse_models_3')
+    parser.add_argument('--sample_path', type=str, default='./sparse_samples_3')
+    parser.add_argument('--attn_path', type=str, default='./sparse_attn_3')
 
     # Step size
     parser.add_argument('--log_step', type=int, default=10)

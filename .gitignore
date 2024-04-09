@@ -11,7 +11,4 @@ attn*/
 generated_*/
 image/
 new_generated_dataset*/
-sparse_attn/
-sparse_logs/
-sparse_models/
-sparse_samples/
+sparse_*/
