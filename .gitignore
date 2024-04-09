@@ -9,6 +9,5 @@ attn*/
 /pytorch-fid
 .ipynb_checkpoints/
 generated_*/
-image/
 new_generated_dataset*/
 sparse_*/
