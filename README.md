@@ -61,7 +61,7 @@ cd sparse_samples_3
 or
 
 ```bash
-cd /lsun_sparse_samples_1
+cd lsun_sparse_samples_1
 ```
 
 
@@ -78,7 +78,7 @@ We add the feature to use non-local attention instead of full attention algorith
 
 ### FID of SAGAN on LSUN
 
-<img src="./assets/image-20240427165739868.png" alt="image-20240427165739868" style="zoom:80%;" />
+<p align="center"><img src="./assets/image-20240427165739868.png" alt="image-20240427165739868" style="zoom:80%;" /> </p>
 
 ### FID of Non-local SAGAN(span=1) on CelebA 
 
@@ -95,7 +95,7 @@ We add the feature to use non-local attention instead of full attention algorith
 
 ### FID of Non-local SAGAN(span=1) on LSUN
 
-<img src="./assets/image-20240427165619210.png" alt="image-20240427165619210" style="zoom: 80%;" />
+<p align="center"><img src="./assets/image-20240427165619210.png" alt="image-20240427165619210" style="zoom: 80%;" /></p>
 
 
 
