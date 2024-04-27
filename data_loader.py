@@ -4,13 +4,14 @@ from torchvision import transforms
 
 
 class Data_Loader():
-    def __init__(self, train, dataset, image_path, image_size, batch_size, shuf=True):
+    def __init__(self, train, dataset, image_path, image_size, batch_size, num_workers,shuf=True):
         self.dataset = dataset
         self.path = image_path
         self.imsize = image_size
         self.batch = batch_size
         self.shuf = shuf
         self.train = train
+        self.num_workers=num_workers
 
     def transform(self, resize, totensor, normalize, centercrop):
         options = []
@@ -27,7 +28,7 @@ class Data_Loader():
 
     def load_lsun(self, classes='church_outdoor_train'):
         transforms = self.transform(True, True, True, False)
-        dataset = dsets.LSUN(self.path, classes=[classes], transform=transforms)
+        dataset = dsets.LSUN(self.path+'/LSUN', classes=[classes], transform=transforms)
         return dataset
 
     def load_celeb(self):
@@ -45,7 +46,7 @@ class Data_Loader():
         loader = torch.utils.data.DataLoader(dataset=dataset,
                                               batch_size=self.batch,
                                               shuffle=self.shuf,
-                                              num_workers=2,
+                                              num_workers=self.num_workers,
                                               drop_last=True)
         return loader
 

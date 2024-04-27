@@ -21,29 +21,47 @@ $ cd SAGAN_PyTorch
 ```
 https://www.kaggle.com/datasets/jessicali9530/celeba-dataset
 or
-https://www.kaggle.com/datasets/ajaykgp12/lsunchurch
+https://www.kaggle.com/datasets/hamzabenmendil/lsun-church
 ```
 
-Then move it under data/CelebA
+Then move it under data/CelebA and data/LSUN
 
 #### 3. Train 
 
-##### (i) Train with original SAGAN
+##### (i) Train with original SAGAN on CelebA
 
 ```bash
-$ python main.py --batch_size 64 --imsize 64 --dataset celeb --adv_loss hinge --version sagan_celeb --total_step 100000 --span 0
+python main.py --batch_size 64 --imsize 64 --dataset celeb --adv_loss hinge --version sagan_celeb --total_step 100000 --span 0
 ```
 
-##### (ii) Train with Non-local SAGAN
+##### (iii) Train with original SAGAN on LSUN
 
 ```bash
-$ python main.py --batch_size 64 --imsize 64 --dataset celeb --adv_loss hinge --version sagan_celeb --total_step 100000 --span 3
+python main.py --batch_size 64 --imsize 64 --dataset lsun --adv_loss hinge --version sagan_lsun --total_step 100000 --span 0 --log_path ./lsun_logs --model_save_path ./lsun_models --sample_path ./lsun_samples --attn_path ./lsun_attn --num_workers 0
+```
+
+##### (ii) Train with Non-local SAGAN on CelebA
+
+```bash
+python main.py --batch_size 64 --imsize 64 --dataset celeb --adv_loss hinge --version sagan_celeb --total_step 100000 --span 3
+```
+
+##### (iii) Train with Non-local SAGAN on LSUN
+
+```bash
+python main.py --batch_size 64 --imsize 64 --dataset lsun --adv_loss hinge --version sagan_lsun --total_step 100000 --span 1 --log_path ./lsun_sparse_logs_1 --model_save_path ./lsun_sparse_models_1 --sample_path ./lsun_sparse_samples_1 --attn_path ./lsun_sparse_attn_1 --num_workers 0
 ```
 
 #### 4. Enjoy the results
 
 ```bash
-$ cd sparse_samples_3
+cd sparse_samples_3
+```
+
+or
+
+```bash
+cd /lsun_sparse_samples_1
 ```
 
 
@@ -58,7 +76,12 @@ We add the feature to use non-local attention instead of full attention algorith
 ### FID of SAGAN on CelebA
 <p align="center"><img width="60%" src="image/denormalized_raw.png" /></p>
 
+### FID of SAGAN on LSUN
+
+<img src="./assets/image-20240427165739868.png" alt="image-20240427165739868" style="zoom:80%;" />
+
 ### FID of Non-local SAGAN(span=1) on CelebA 
+
 <p align="center"><img width="60%" src="image/span=1.png" /></p>
 
 ### FID of Non-local SAGAN(span=2) on CelebA 
@@ -69,6 +92,10 @@ We add the feature to use non-local attention instead of full attention algorith
 
 ### FID of Non-local SAGAN(span=4) on CelebA 
 <p align="center"><img width="60%" src="image/span=4.png" /></p>
+
+### FID of Non-local SAGAN(span=1) on LSUN
+
+<img src="./assets/image-20240427165619210.png" alt="image-20240427165619210" style="zoom: 80%;" />
 
 
 

@@ -5,6 +5,7 @@ from tester import Tester
 from data_loader import Data_Loader
 from torch.backends import cudnn
 from utils import make_folder
+import torch
 
 def main(config):
     # For fast training
@@ -13,7 +14,7 @@ def main(config):
 
     # Data loader
     data_loader = Data_Loader(config.train, config.dataset, config.image_path, config.imsize,
-                             config.batch_size, shuf=config.train)
+                             config.batch_size, config.num_workers,shuf=config.train)
 
     # Create directories if not exist
     make_folder(config.model_save_path, config.version)
@@ -33,6 +34,7 @@ def main(config):
         tester.test()
 
 if __name__ == '__main__':
+    torch.multiprocessing.set_start_method('spawn')
     config = get_parameters()
     print(config)
     main(config)

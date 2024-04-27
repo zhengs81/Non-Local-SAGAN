@@ -11,3 +11,7 @@ attn*/
 generated_*/
 new_generated_dataset*/
 sparse_*/
+_cache_*
+lsun*/
+download.sh
+指令.md
