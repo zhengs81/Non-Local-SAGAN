@@ -97,7 +97,13 @@ We add the feature to use non-local attention instead of full attention algorith
 
 <p align="center"><img src="./assets/image-20240427165619210.png" alt="image-20240427165619210" style="zoom: 80%;" /></p>
 
+### Samples of SAGAN
 
+![100000_fake](./assets/100000_fake-1714519669680-2.png)
+
+### Samples of Non-local SAGAN(span=1)
+
+![100000_fake](./assets/100000_fake.png)
 
 ## Conclusion
 
